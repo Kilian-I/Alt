@@ -1,0 +1,181 @@
+<diagram program="umletino" version="15.1"><zoom_level>8</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>800</x><y>48</y><w>168</w><h>112</h></coordinates><panel_attributes>Publications
+--
+id (PK)					INT
+content					TEXT
+publication_date			TIMESTAMP	
+user_id (FK → Users.id)		INT
+created_at				TIMESTAMP	
+updated_at				TIMESTAMP	</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1176</x><y>0</y><w>168</w><h>120</h></coordinates><panel_attributes>Comments		
+--
+id (PK)							INT
+content							TEXT
+comment_date					TIMESTAMP
+user_id (FK → Users.id)				INT
+publication_id (FK → Publications.id)	INT
+created_at						TIMESTAMP
+updated_at						TIMESTAMP</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>280</x><y>224</y><w>144</w><h>144</h></coordinates><panel_attributes>Users
+--
+id (PK)				INT
+firstname				VARCHAR
+lastname				VARCHAR
+email (Unique)			VARCHAR
+password				VARCHAR
+birthdate				DATE
+avatar				VARCHAR
+bio					TEXT
+created_at			TIMESTAMP
+updated_at			TIMESTAMP</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1288</x><y>296</y><w>168</w><h>120</h></coordinates><panel_attributes>GroupMembers
+--
+id (PK)						INT 
+join_date						TIMESTAMP	
+member_status				VARCHAR
+member_role					VARCHAR
+user_id (FK → Users.id)			INT
+group_id (FK → UserGroups.id)	INT
+created_at					TIMESTAMP	
+updated_at					TIMESTAMP	</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1712</x><y>1208</y><w>168</w><h>112</h></coordinates><panel_attributes>USERGROUPS
+--
+id (PK)
+name
+description
+creation_date
+creator_id (FK → Users.id)
+created_at
+updated_at</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1784</x><y>1400</y><w>168</w><h>120</h></coordinates><panel_attributes>MESSAGES
+--
+id (PK)
+content
+send_date
+user_id (FK → Users.id)
+group_id (FK → UserGroups.id)
+created_at
+updated_at</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1272</x><y>520</y><w>168</w><h>152</h></coordinates><panel_attributes>Messages
+--
+id (PK)						INT
+content						TEXT
+send_date					TIMESTAMP
+user_id (FK → Users.id)			INT
+group_id (FK → UserGroups.id)	INT
+created_at					TIMESTAMP
+updated_at					TIMESTAMP</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>832</x><y>328</y><w>168</w><h>120</h></coordinates><panel_attributes>UserGroups
+--
+id (PK)						INT
+name						VARCHAR
+description					TEXT
+creation_date					TIMESTAMP	
+creator_id (FK → Users.id)		INT
+created_at					TIMESTAMP	
+updated_at					TIMESTAMP	</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>40</x><y>480</y><w>376</w><h>176</h></coordinates><panel_attributes>Friendships
+--
+id (PK)					INT
+creation_date				TIMESTAMP
+user1_id (FK → Users.id)	INT
+user2_id (FK → Users.id)	INT
+created_at				TIMESTAMP
+updated_at				TIMESTAMP
+--
+Contraintes : user1_id &lt; user2_id, user1_id ≠ user2_id, Unique(user1_id, user2_id)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>816</x><y>664</y><w>272</w><h>256</h></coordinates><panel_attributes>Resources
+--
+id (PK) 							INT
+name							VARCHAR
+type 							Resources_type_enum
+parent_id (FK → Resources.id, nullable)INT
+owner_id (FK → Users.id)			INT
+is_public (bool)			Resources_visibility_enum
+created_at				TIMESTAMP			
+updated_at				TIMESTAMP
+--
+Enum Resources_type_enum {
+ document
+ image
+ video
+ autre
+ }
+Enum Resources_visibility_enum {
+ public
+ privé
+ }</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1352</x><y>800</y><w>168</w><h>80</h></coordinates><panel_attributes>ResourceMetadata
+--
+id (PK)						INT
+resource_id (FK → Resources.id)	INT
+key							VARCHAR
+value						TEXT</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1784</x><y>696</y><w>168</w><h>144</h></coordinates><panel_attributes>ResourcePermissions
+--
+id (PK)							INT
+resource_id (FK → Resources.id)		INT
+user_id (FK → Users.id)				INT
+permission_type (read, write, admin) ResourcePermissions_permission_enum
+--
+Enum ResourcePermissions_permission_enum {
+ lecture
+ écriture
+ admin
+ }</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1000</x><y>944</y><w>328</w><h>208</h></coordinates><panel_attributes>Events
+--
+id (PK)									INT
+title										VARCHAR
+description								TEXT
+event_date								TIMESTAMP
+location_type (physique, en ligne, hybride)	Events_location_type_enum
+location_details							VARCHAR
+creator_id (FK → Users.id)					INT
+group_id (FK → UserGroups.id, nullable)		INT
+created_at								TIMESTAMP
+updated_at								TIMESTAMP
+--
+ Enum Events_location_type_enum {
+ physique
+ en ligne
+ hybride
+ }</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1336</x><y>976</y><w>168</w><h>144</h></coordinates><panel_attributes>EventParticipants
+--
+id (PK)							INT
+event_id (FK → Events.id)			INT
+user_id (FK → Users.id)				INT
+status (attending, maybe, declined) 	EventParticipants_status_enum
+--
+ Enum EventParticipants_status_enum {
+ invité
+ confirmé
+ refusé
+ }</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>472</x><y>1112</y><w>240</w><h>136</h></coordinates><panel_attributes>EventResources
+--
+id (PK)						INT
+event_id (FK → Events.id)		INT
+resource_id (FK → Resources.id) 	INT
+status EventParticipants_status_enum
+--
+ Enum EventParticipants_status_enum {
+ invité
+ confirmé
+ refusé
+ }</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>1056</y><w>168</w><h>56</h></coordinates><panel_attributes>Notifications
+--
+id (PK)					INT
+user_id (FK → Users.id)		INT
+type						Notifications_type_enum
+content					TEXT
+is_read					BOOLEAN
+created_at				TIMESTAMP
+delete					TIMESTAMP
+--
+Enum Notifications_type_enum {
+ info
+ alerte
+ message
+ }		</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>416</x><y>64</y><w>400</w><h>216</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*
+FK_Publications_User &gt;</panel_attributes><additional_attributes>10;240;300;240;300;10;480;10</additional_attributes></element><element><id>Relation</id><coordinates><x>0</x><y>248</y><w>488</w><h>304</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*
+FK_Friendships_User1 &gt;</panel_attributes><additional_attributes>530;10;590;10;590;250;10;250;10;350;50;350</additional_attributes></element><element><id>Relation</id><coordinates><x>408</x><y>248</y><w>192</w><h>320</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*
+FK_Friendships_User2 &gt;</panel_attributes><additional_attributes>20;10;80;10;80;370;10;370</additional_attributes></element><element><id>Relation</id><coordinates><x>416</x><y>240</y><w>432</w><h>192</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*
+teaches to &gt;</panel_attributes><additional_attributes>10;20;480;20;480;210;520;210</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>56</y><w>232</w><h>40</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*
+ FK_Comments_Publication &gt;</panel_attributes><additional_attributes>10;20;270;20</additional_attributes></element></diagram>
