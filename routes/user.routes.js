@@ -7,7 +7,7 @@ router.post("/register", authController.signUp);
 // Route for user login
 router.post("/login", authController.login);
 // Route for user logout
-router.post("/logout", authController.logout);
+router.get("/logout", authController.logout);
 // Route for all user 
 router.get('/', userController.getAllUsers);
 // Route for getting a user by ID

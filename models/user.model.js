@@ -7,20 +7,27 @@ const userSchema = new mongoose.Schema({
   firstname: {
     type: String,
     required: true,
+    minlength: 3, 
+    maxlength: 30, 
   },
   lastname: {
     type: String,
     required: true,
+     minlength: 3, 
+    maxlength: 30,
   },
   email: {
     type: String,
     required: true,
     validate: [isEmail],
     unique: true, // L'email doit être unique pour chaque utilisateur
+    maxlength: 40,
   },
   password: {
     type: String,
     required: true,
+     minlength: 8, 
+    maxlength: 50,
   },
   birthdate: {
     type: Date,
@@ -33,6 +40,7 @@ const userSchema = new mongoose.Schema({
   bio: {
     type: String,
     required: false, // La bio est probablement facultative
+    maxlength: 100,
   },
 },
   {timestamps: true} // Ajoute les champs createdAt et updatedAt

@@ -7,7 +7,7 @@ const userRoutes = require('./routes/user.routes');
 require('dotenv').config({path: './config/.env'});
 require('./config/db');
 
-const { checkUser } = require('./middleware/auth.middleware');
+const { checkUser , requireAuth } = require('./middleware/auth.middleware');
 const app = express();
 
 
@@ -19,6 +19,9 @@ app.use(cookieParser());
 //
 app.use(checkUser); // Middleware to check user authentication
 
+app.get('/jwtid', requireAuth, (req, res) => {
+    res.status(200).json(res.locals.user._id);
+});
 
 //routes
 app.use('/api/users', userRoutes);

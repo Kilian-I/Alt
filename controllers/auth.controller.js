@@ -1,6 +1,7 @@
 const { create } = require('../models/user.model');
 const UserModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const { signUpErrors, SignInErrors } = require('../utils/errors.js'); 
 const maxAge = 3 * 24 * 60 * 60; 
 const createToken = (id) => {
     return jwt.sign({ id }, process.env.TOKEN_SECRET, {
@@ -14,8 +15,9 @@ module.exports.signUp = async (req, res) => {
         const user = await UserModel.create({ lastname, firstname, password, email, birthdate, avatar, bio });
         // Logic for user registration
         res.status(201).json({ user: user._id });
-    } catch (error) {
-        res.status(500).json({ error: "Registration failed", details: error.message });
+    } catch (err) {
+        const errors = signUpErrors(err);
+        res.status(500).send({ errors });
     }
 }
 
@@ -28,15 +30,16 @@ module.exports.login = async (req, res) => {
         res.status(200).json({ user: user._id, token });
 
     } 
-    catch (error) {
-        res.status(500).json({ error: "Login failed", details: error.message });
+    catch (err) {
+         const errors = SignInErrors(err);
+       res.status(500).send({ errors });
     } 
 }
 
 module.exports.logout = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 }); // Clear the cookie
     // Optionally, you can also clear the session or perform other logout actions
-    res.redirect('/');
+  
     // Logic for user logout
-    res.status(200).json({ message: "User logged out successfully" });
+    return res.status(200).json({ message: "User logged out successfully" });
 }
