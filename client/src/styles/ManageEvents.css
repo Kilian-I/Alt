@@ -1,0 +1,91 @@
+.events-container {
+  padding: 20px;
+}
+
+.events-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.events-header h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.create-event-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event-card {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.event-info h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.event-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.event-details p {
+  margin: 0;
+}
+
+.event-description {
+  color: #6c757d;
+  margin-bottom: 15px;
+}
+
+.event-resources h4 {
+  margin-bottom: 10px;
+}
+
+.resources-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.resource-tag {
+  background-color: #e9ecef;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.event-actions {
+  display: flex;
+  align-items: center;
+}
+
+.rsvp-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
